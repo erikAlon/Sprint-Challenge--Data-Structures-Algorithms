@@ -1,8 +1,3 @@
-const heapsort = (arr) => {
-  /* Your code here */
-  
-};
-
 class Heap {
   constructor() {
     this.storage = [null];
@@ -38,9 +33,12 @@ class Heap {
   }
 
   bubbleUp(index) {
-    const parent = Math.floor(index/2);
+    const parent = Math.floor(index / 2);
     if (parent > 0 && this.storage[parent] < this.storage[index]) {
-      [this.storage[parent], this.storage[index]] = [this.storage[index], this.storage[parent]];
+      [this.storage[parent], this.storage[index]] = [
+        this.storage[index],
+        this.storage[parent]
+      ];
       this.bubbleUp(parent);
     }
   }
@@ -54,18 +52,43 @@ class Heap {
       if (this.storage[child2] === undefined) {
         maxChild = child1;
       } else if (this.storage[child2] !== undefined) {
-        maxChild = this.storage[child1] > this.storage[child2] ? child1 : child2;
+        maxChild =
+          this.storage[child1] > this.storage[child2] ? child1 : child2;
       }
 
       if (this.storage[index] < this.storage[maxChild]) {
-        [this.storage[maxChild], this.storage[index]] = [this.storage[index], this.storage[maxChild]];
+        [this.storage[maxChild], this.storage[index]] = [
+          this.storage[index],
+          this.storage[maxChild]
+        ];
         this.siftDown(maxChild);
       }
     }
   }
 }
 
+const heapsort = arr => {
+  /* Your code here */
+  // Pass arrCopy into heapsort and create the binary tree
+  // sort arrCopy by deleting from heap
+  let heap = new Heap();
+  let arr1 = [];
+  let x = 1;
+
+  for (let i = 0; i < arr.length; i++) {
+    heap.insert(arr[i]);
+  }
+  while (heap.size) {
+    arr1.unshift(heap.delete());
+  }
+
+  return arr1;
+};
+
+// const ans = heapsort([5, 7, 2, 9, 11]);
+// console.log(ans);
+
 module.exports = {
   Heap,
-  heapsort,
+  heapsort
 };
